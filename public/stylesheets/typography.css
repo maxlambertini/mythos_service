@@ -1,0 +1,32 @@
+
+@font-face {
+    font-family: 'Vollkorn';
+    src: url('/fonts/vollkorn-regular-webfont.ttf') ;
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Vollkorn';
+    src: url('/fonts/vollkorn-italic-webfont.ttf') ;
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Vollkorn';
+    src: url('/fonts/vollkorn-bold-webfont.ttf') ;
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Vollkorn';
+    src: url('/fonts/vollkorn-bolditalic-webfont.ttf') ;
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'zero-and-zero';
+    src: url('/fonts/metamorphous-regular-webfont.ttf');
+    font-weight: normal;
+    font-style: normal;
+}

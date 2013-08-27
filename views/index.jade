@@ -1,0 +1,65 @@
+extends layout
+
+block content
+  header.top
+    h1=blurb 
+    div.subblurb=subblurb
+
+  div.blurb
+    h2 Ià! Ià!  #{mythos.getDeity()}
+
+    p.welcome Step inside, you convert!
+    p You have found a most peculiar place in the infinite abyss of the Unknown. 
+    p The place  where mythical beings take full form, all too eager to bring 
+      |  madness and destruction to our hapless kind and our puny planet, the
+      |  cradle from whence the most dangerous, #{mythos.getAdjective()} menaces humanity will ever know
+      |  are born, groomed and unleashed to our cosmos.
+
+    h3.warning This was your concern. But you have seen and felt the True Power  
+
+    p Now you have devoted your life to our goal: to bring utter madness and
+      | eternal destruction to Earth. But to do this, you must seek help. And only
+      | this place, the unholy womb from whence Mythos creatures come, can help 
+      | you further what is now Your purpose. 
+
+    h3 Ià! Ià! err...invoke a new Great Old One
+
+    p   Just reload this page to see a new invocation. 
+
+    h3.
+       Click on one of the links below to recruit one or more worthy #{mythos.getAdjective()} companions
+
+    p.
+       you can muster the #{mythos.getAdjective()} power of a single Creature or, if confronting 
+       an unusually agguerrite group of investigators, assemble a cohort of #{mythos.getAdjective()}
+       entities ready to side with you (for the little price of the final remnants of your sanity)
+
+    h3 Invoking the assistance of a single Creature
+
+    p You just have to  
+      a(href="/mythos")  click here  
+      | to tap the power of Mythos. 
+
+
+    h3 Gathering a cohort of #{mythos.getAdjective()} beasties
+
+    p.
+       You just have to <a href="/mythos/12">click here</a>
+       to recruit a small army from Beyond. 
+
+    h3 Have your #{mythos.getAdjective()}  roster in a nice tabular format.
+    
+    p  Because even cultists value planning and organization. Just <a href="/mythos/12/table">click here</a> to invoke a small
+       |  platoon of #{mythos.getAdjective(true)}, #{mythos.getAdjective(true)} 
+       |  beings from the Abyss. 
+
+    h3 The Stars Are Right, 2.0 (beta)
+
+    p.
+       Sir, are you a developer? Then bring #{mythos.getAdjective()} madness over the web by letting your software be parasited by this handy JSON call: 
+
+    pre http://mythos.lamboz.net/json/mythos/:num
+
+    p.
+        where <b>:num</b> is the number of #{mythos.getAdjective()} entities spawned from Beyond.
+       

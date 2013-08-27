@@ -1,0 +1,49 @@
+extends layout
+
+block content 
+  header.top
+    h1=title 
+    div.subblurb.
+        No self-respecting cultist would try to subvert the moral order of the Cosmos 
+        without recurring to this #{mythos.getAdjective()}, #{mythos.getAdjective()} set
+        of tools.
+ 
+  div.blurb
+    
+    <a name="tools"></a>
+
+
+    p This #{mythos.getAdjective()}, #{mythos.getAdjective()} web application was inspired by a number of things:
+
+    ul.blurbize 
+      li A long-standing passion for all things Lovecraft
+      li A love for random generators of stuff for RPGs.
+      li A desire to learn me some NodeJS/ExpressJS
+      li A tongue-in-cheek spirit that lead me to make a little fun of HPL's passion for adjectives. 
+      li An effort to create a whole project using Vim. 
+
+    p 
+       | If you are HPL True Believers(TM) or Call Of Cthulhu RPG -- Chaosium Edition, the Real One -- stalwart
+       | please take this little application as a labour of love. Play with it, use it, get inspired from it (I hope so)
+       | and, in a little time, fork its source and make it your own.  
+
+    h3 Tools Used
+
+    p.
+      These are the tools I used. Please note that no self-respecting cultist would use MacOSX or
+      Windows to further Its Deity's Plan For Cosmos Annihilation. Hell, even most deranged ones
+      do retain some moral principles...
+
+    section#monsters-block 
+      table
+        thead
+          tr
+            th Tool Description
+            th Tool Name 
+        tbody
+          each tool in tools
+            tr
+             td= tool.desc
+             td <a href="#{tool.url}" target="_new">#{tool.key}</a>
+
+    

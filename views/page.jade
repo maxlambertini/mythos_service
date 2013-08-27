@@ -1,0 +1,21 @@
+extends layout
+
+block content 
+  header.top
+    h1=title 
+    div.subblurb.
+        Here you are. The Elder Gods have heard your call, and granted you the command of this 
+        #{mythos.getAdjective()}, #{mythos.getAdjective()} spawn of #{mythos.getName()}
+        from the Endless Void...
+
+  div.blurb
+ 
+    section#monsters-block
+      each monster in monsters
+        div.monster
+          h3= monster.name
+          div.desc= monster.description
+          div.sanity Seeing it will cost the hapless investigator #{monster.sanity} points. 
+
+
+         

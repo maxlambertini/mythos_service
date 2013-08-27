@@ -1,0 +1,27 @@
+extends layout
+
+block content 
+  header.top
+    h1=title 
+    div.subblurb.
+        Here you are. The Elder Gods have heard your call, and granted you the command of this 
+        #{mythos.getAdjective()}, #{mythos.getAdjective()} spawn of #{mythos.getName()}
+        from the Endless Void in a form of a nice, tabulated roster
+ 
+  div.blurb
+    section#monsters-block 
+      table
+        thead
+          tr
+            th Monster
+            th Description
+            th Sanity loss
+        tbody
+          each monster in monsters
+            tr
+             td= monster.name
+             td= monster.description
+             td=monster.sanity
+
+
+         
