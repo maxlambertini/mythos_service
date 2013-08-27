@@ -30,5 +30,10 @@ Running it
 
 <tt>node mythos.js</tt> to have Mythos as a Service running on port 51666
 
+But WHY?
+--------
+
+These are the effects of extreme commuting, a new sport soon to be included in Olympic Games.
+
 
 
