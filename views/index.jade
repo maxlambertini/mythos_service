@@ -58,8 +58,12 @@ block content
     p.
        Sir, are you a developer? Then bring #{mythos.getAdjective()} madness over the web by letting your software be parasited by this handy JSON call: 
 
-    pre http://mythos.lamboz.net/json/mythos/:num
+    ul.blurbize
+      li <tt>/json/mythos/:num</tt> : Generates num lovecraftian creatures. Default is 1
+      li <tt>/json/eldergods/:num</tt> : Generates num Elder Gods (similar to mythos, indeed)
+      li <tt>/json/people/:num</tt> : Generates num peoples worshipping some Dark God here and there.
+      li <tt>/json/names/:num</tt> : Generates num cthulhoid names
+      li <tt>/json/adjectives/:num</tt> : Generates num lovecraftian adjectives
 
-    p.
-        where <b>:num</b> is the number of #{mythos.getAdjective()} entities spawned from Beyond.
-       
+      
+ 
