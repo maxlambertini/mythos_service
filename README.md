@@ -23,4 +23,11 @@ Services Exposed:
 * <tt>/json/names/:num<tt> : Generates <tt>num</tt> cthulhoid names
 * <tt>/json/adjectives/:num<tt> : Generates <tt>num</tt> lovecraftian adjectives
 
+Running it
+----------
+
+<tt>npm install</tt> to install required modules
+<tt>node mythos.js</tt> to have Mythos as a Service running on port 51666
+
+
 
