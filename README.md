@@ -20,7 +20,7 @@ Services Exposed:
 * <tt>/json/mythos/:num</tt> : Generates <tt>num</tt> lovecraftian creatures. Default is 1
 * <tt>/json/eldergods/:num</tt> : Generates <tt>num</tt> Elder Gods (similar to <tt>mythos</tt>, indeed)
 * <tt>/json/people/:num</tt> : Generates <tt>num</tt> peoples worshipping some Dark God here and there. 
-* <tt>/json/names/:num<tt> : Generates <tt>num</tt> cthulhoid names
+* <tt>/json/names/:num</tt> : Generates <tt>num</tt> cthulhoid names
 * <tt>/json/adjectives/:num</tt> : Generates <tt>num</tt> lovecraftian adjectives
 
 Running it
