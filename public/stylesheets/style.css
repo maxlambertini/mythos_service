@@ -57,7 +57,7 @@ footer { margin-top: 1em;
     background-color: black;
     color: white;
     margin: 0;
-    padding: 1em;
+    width:100%;
     font-size: 1.2em;
     margin-top: 2em;
     float:left;
@@ -73,6 +73,6 @@ footer { margin-top: 1em;
 .blurb { display:block; width:100%; float:left; background-color:white; margin: 0.5em 0;}
 
 footer { background-image:url('/images/fire_vampires3.png'); }
-.inner-footer { float: left; width: 100%; font-size: 0.9em; }
+.inner-footer { float: left; width: 100%; font-size: 0.9em; margin: 1em;}
 .inner-footer .cell-1 { float: left; width: 48%; }
 .inner-footer .cell-2 { float: right; width: 48%; }
