@@ -1,7 +1,7 @@
 doctype 5
 html
   head
-    title= title
+    title Cthulhu Mythos as A Service --  #{title}
     link(rel='stylesheet', href='/stylesheets/typography.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel="canonical", href="http://mythos.lamboz.net");
@@ -9,25 +9,27 @@ html
     | </script>
     
   body
-    nav
-       ul
-          li <a href="/">Home</a>
-          li <a href="/mythos">One creature</a>
-          li <a href="/mythos/12">A dozen creatures</a>
-          li <a href="/mythos/12/table">A table of a dozen creatures</a>
+    .page-container
+        nav
+           ul
+              li <a href="/">Home</a>
+              li <a href="/mythos">One creature</a>
+              li <a href="/mythos/12">A dozen creatures</a>
+              li <a href="/mythos/12/table">A table of a dozen creatures</a>
+              li <a href="/about">About Mythos...</a>
 
-    block content
-    footer
-      div.inner-footer
-        div.cell-1
-          div.credits Built using <a href="/about#tools">a lot of tools from Beyond</a> by Lamboz the Great Old One.
-          div.github <a href="https://github.com/maxlambertini/mythos_service">Fork me on Github!</a>
-        div.cell-2
-          div.paypal  
-              div.text Be a true believer! contribute to make the Stars Right! 
-              div.buttons
-                  include paypal.html
-          div.social 
-              div.text Or at least, please share!
-              div.buttons
-                  include socials.html
+        block content
+        footer
+          div.inner-footer
+            div.cell-1
+              div.credits Built using <a href="/about#tools">a lot of tools from Beyond</a> by Lamboz the Great Old One.
+              div.github <a href="https://github.com/maxlambertini/mythos_service">Fork me on Github!</a>
+            div.cell-2
+              div.paypal  
+                  div.text Be a true believer! contribute to make the Stars Right! 
+                  div.buttons
+                      include paypal.html
+              div.social 
+                  div.text Or at least, please share!
+                  div.buttons
+                      include socials.html
