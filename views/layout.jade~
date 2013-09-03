@@ -2,7 +2,6 @@ doctype 5
 html
   head
     title Cthulhu Mythos as A Service --  #{title}
-    link(href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css')
     link(rel='stylesheet', href='/stylesheets/typography.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel="canonical", href="http://mythos.lamboz.net");

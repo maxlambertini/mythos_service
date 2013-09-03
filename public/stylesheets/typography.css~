@@ -1,5 +1,4 @@
 
-/*
 @font-face {
     font-family: 'Vollkorn';
     src: url('/fonts/vollkorn-regular-webfont.ttf') ;
@@ -31,4 +30,3 @@
     font-weight: normal;
     font-style: normal;
 }
-*/
