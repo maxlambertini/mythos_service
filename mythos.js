@@ -31,8 +31,9 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/mythos/:monsters?/:tabular?', mythos.creature) 
 app.get('/json/mythos/:monsters?/:tabular?', mythos.jsonCreature);
+app.post('/mythos/:monsters?/:tabular?', mythos.creature) 
+app.get('/mythos/:monsters?/:tabular?', mythos.creature) 
 
 //more json stuff
 app.get('/json/eldergods/:num?', mythos.jsonElderGods);

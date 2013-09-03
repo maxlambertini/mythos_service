@@ -1,7 +1,9 @@
 var mythos = require('./cthulize.js');
 var crit = new mythos.Cthulhu();
 
-exports.creature = function(req, res) {
+
+
+var _creature = function(req, res) {
    var cnt = 1;
    if (req.params && req.params.monsters) {
        //console.log("Monsters: " + req.params.monsters);
@@ -33,7 +35,7 @@ exports.creature = function(req, res) {
 }
 
 
-exports.jsonCreature = function(req,res) {
+var _jsonCreature = function(req,res) {
     var cnt = 1;
     try {
         if (req.params && req.params.monsters) {
@@ -65,12 +67,44 @@ exports.jsonCreature = function(req,res) {
     res.end();
 }
 
-function commonJsonDataGenerator (req,res,jsonDataFunction,jsonKey) {
+exports.creature = function(req,res) {
+    req.accepts('text/plain');
+    req.accepts('text/html');
+    req.accepts('application/json');
+    console.log(req.accepted);
+    res.format({
+        'text/plain': function(){
+            _creature(req,res);
+        },
+
+        'text/html': function(){
+            _creature(req,res);
+        },
+
+        'application/json': function(){
+            _jsonCreature(req,res);
+        }
+    });
+/*
+    res.format(
+    { 'text/html' : function() { _creature(req,res); } },
+    { 'application/json' : function() { _jsonCreature(req,res); }   },
+    { 'text/plain' : function () { _creature(req,res); } }
+    )
+    */
+}
+exports.jsonCreature = _jsonCreature
+
+
+
+function createJsonDataGenerator (req,res,jsonDataFunction,jsonKey, jsonTitle) {
     var cnt = 1;
-    var dataKey = jsonKey || "data"
+    var dataKey = jsonKey || "data";
+    var title = jsonTitle || "Title"
     console.log ("jsonKey " + dataKey);
     console.log("num " + req.params.num);
     console.log (jsonDataFunction);
+    _res = {};
     try {
         if (req.params && req.params.num) {
             try {
@@ -89,41 +123,64 @@ function commonJsonDataGenerator (req,res,jsonDataFunction,jsonKey) {
             eval ("var c = " + jsonDataFunction);
             resx.push(c);
         }
-        res.writeHead(200, {'Content-type':'text/json' });
         var obj = { "status" : 'ok' };
         obj[dataKey] = resx;
-        res.write(JSON.stringify(obj)); 
+        obj["title"] = jsonTitle
+        _res = obj;
     }
     catch (e) {
         console.log("Error in generation " + e)
-        res.writeHead(200, {'Content-type':'text/json' });
-        res.write(JSON.stringify( {
+        _res = {
             status : 'ko',
+            title : jsonTitle,
             error : e 
-        }));
+        };
     }
+    return _res;
+}
+
+function commonJsonDataGenerator(req,res,data) {
+    console.log("invoking data generatoor - "+ data || "no-data");
+    res.writeHead(200, {'Content-type':'text/json' });
+    res.write(JSON.stringify(data));
     res.end();
+}
+
+function commonJsonPageGenerator (req, res, data, template) {
+    console.log("Generating page " + (data || "no data")+ ","+ (template || " no tpl" ));
+    res.render (template, data);    
+}
+
+function commonOutput(req,res,data,template) {
+    res.format ( {
+        text : function() { commonJsonPageGenerator(req,res,data,template); },
+        html : function() { commonJsonPageGenerator(req,res,data,template); },
+        json : function() { commonJsonDataGenerator(req,res,data); }
+    });
 }
 
 exports.jsonElderGods = function(req,res) {
     console.log("Invoking jsonElderGods... ");
-    commonJsonDataGenerator(req,res,"crit.getElderGod()","eldergods");
-    res.end();
+    var data = createJsonDataGenerator(req,res,"crit.getElderGod()","eldergods","Elder Gods");
+    commonOutput(req,res,data,"eldergods");
 }
 
 exports.jsonAdjectives = function(req,res) {
     console.log ("Invoking jsonAdjectives");
-    commonJsonDataGenerator(req, res, "crit.getAdjective()", "adjectives");
+    var data = createJsonDataGenerator(req, res, "crit.getAdjective()", "adjectives","Adjectives");
+    commonOutput(req,res,data,"adjectives");
 }
 
 exports.jsonPeople = function (req,res) {
     console.log("Invoking jsonPeople");
-    commonJsonDataGenerator(req,res, "crit.getPeople()","peoples");
+    var data = createJsonDataGenerator(req,res, "crit.getPeople()","peoples", "Peoples");
+    commonOutput(req,res,data,"peoples");
 }
 
 exports.jsonNames = function(req,res) {
     console.log("Invoking jsonNames");
-    commonJsonDataGenerator(req, res, "crit.getCompleteName()", "names");
+    var data = createJsonDataGenerator(req, res, "crit.getCompleteName()", "names", "Names");
+    commonOutput(req,res,data,"names");
 }
 
 
