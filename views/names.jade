@@ -1,0 +1,14 @@
+extends layout
+
+block content 
+  header.top
+    h1=title 
+    div.subblurb.
+      Need a name for your new creature? Look no further!
+ 
+  div.blurb
+    ul.blurbize
+      each pp  in names
+        li= pp
+
+

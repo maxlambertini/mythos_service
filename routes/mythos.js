@@ -125,7 +125,7 @@ function createJsonDataGenerator (req,res,jsonDataFunction,jsonKey, jsonTitle) {
         }
         var obj = { "status" : 'ok' };
         obj[dataKey] = resx;
-        obj["title"] = jsonTitle
+        obj["title"] = jsonTitle;
         _res = obj;
     }
     catch (e) {
@@ -148,7 +148,9 @@ function commonJsonDataGenerator(req,res,data) {
 
 function commonJsonPageGenerator (req, res, data, template) {
     console.log("Generating page " + (data || "no data")+ ","+ (template || " no tpl" ));
+    data["mythos"] = crit;
     res.render (template, data);    
+
 }
 
 function commonOutput(req,res,data,template) {
@@ -182,5 +184,6 @@ exports.jsonNames = function(req,res) {
     var data = createJsonDataGenerator(req, res, "crit.getCompleteName()", "names", "Names");
     commonOutput(req,res,data,"names");
 }
+
 
 

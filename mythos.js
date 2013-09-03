@@ -43,6 +43,13 @@ app.get('/json/adjectives/:num?',mythos.jsonAdjectives);
 
 app.get('/about', ab.about);
 
+app.get('/eldergods/:num?', mythos.jsonElderGods);
+app.get('/people/:num?', mythos.jsonPeople);
+app.get('/names/:num?', mythos.jsonNames);
+app.get('/adjectives/:num?',mythos.jsonAdjectives);
+
+
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

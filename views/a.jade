@@ -1,0 +1,14 @@
+extends layout
+
+block content 
+  header.top
+    h1=title 
+    div.subblurb.
+      We all knew about HPL's love for adjectives. Now, don't let yourself run out of them!
+ 
+  div.blurb
+    ul.blurbize
+      each people in peoples
+        li= people
+
+
