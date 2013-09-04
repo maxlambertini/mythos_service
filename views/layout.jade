@@ -1,13 +1,15 @@
 doctype 5
 html
   head
-    title Cthulhu Mythos as A Service --  #{title}
+    title Cthulhu Mythos Json Generator --  #{title}
+    meta(name='description' content='A Json-Powered Cthulhu Mythos Generator written using node.js . Creates monsters, peoples, elder gods, names, adjectives')
     link(href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css')
     link(rel='stylesheet', href='/stylesheets/typography.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel="canonical", href="http://mythos.lamboz.net");
     | <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
     | </script>
+    include shiv.html
     
   body
     .page-container
