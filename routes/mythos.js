@@ -67,6 +67,40 @@ var _jsonCreature = function(req,res) {
     res.end();
 }
 
+var _textCreature = function(req,res) {
+    var cnt = 1;
+    try {
+        if (req.params && req.params.monsters) {
+            try {
+                cnt = parseInt(req.params.monsters,10);
+                if (cnt < 0) cnt = 1;
+                if (cnt > 100) cnt = 100; //max out at 100 critters;
+            }
+            catch (e) {
+                console.log(cnt);
+                console.log("Error!!!!" + e);
+            }
+        }
+        var resx = [];
+        for (var h =0; h < cnt; h++) {
+            c = crit.fullCreature();
+            resx.push(c);
+        }
+        res.writeHead(200, {'Content-type':'text/plain' });
+        res.write("OK");
+        for (var x = 0; x < resx.length; x++) {
+            var w = resx[x];
+            res.write (w.name + "\t" + w.description + "\t" + w.sanity + "\n");
+        }
+    }
+    catch (e) {
+        res.writeHead(200, {'Content-type':'text/plain' });
+        res.write("Error! " + e);
+        
+    }
+    res.end();
+}
+
 exports.creature = function(req,res) {
     req.accepts('text/plain');
     req.accepts('text/html');
@@ -74,7 +108,7 @@ exports.creature = function(req,res) {
     console.log(req.accepted);
     res.format({
         'text/plain': function(){
-            _creature(req,res);
+            _textCreature(req,res);
         },
 
         'text/html': function(){
@@ -83,6 +117,9 @@ exports.creature = function(req,res) {
 
         'application/json': function(){
             _jsonCreature(req,res);
+        },
+        '*/*' : function() {
+            _textCreature(req,res);
         }
     });
 /*
@@ -153,9 +190,20 @@ function commonJsonPageGenerator (req, res, data, template) {
 
 }
 
+function commonJsonTextGenerator (req,res,data,template) {
+    var arr = data[template];
+    res.writeHead(200, { 'Content-type' : 'text/plain' });
+    if (arr && arr.length) {
+        for (var x = 1; x < arr.length; x++)
+            res.write(arr[x]+"\n");
+    }
+    res.end();
+
+}
+
 function commonOutput(req,res,data,template) {
     res.format ( {
-        text : function() { commonJsonPageGenerator(req,res,data,template); },
+        text : function() { commonJsonTextGenerator(req,res,data,template); },
         html : function() { commonJsonPageGenerator(req,res,data,template); },
         json : function() { commonJsonDataGenerator(req,res,data); }
     });

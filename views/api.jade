@@ -1,0 +1,47 @@
+extends layout
+
+block content 
+  header.top
+    h1 Mythos as a Service API 
+    div.subblurb.
+        Want to bring madness all over the world? Do you think that all these 2.0's require
+        nothing less that utter and complete mind annihilation from unspeakable
+        entities from Beyond? Well, here you are. Infect the web with this handy interface. 
+ 
+  div.blurb
+    
+    <a name="tools"></a>
+
+    h2 Content Negotiation
+
+    p Mythos as a Service now supports Content Negotiation. According to these headers, 
+      | you'll get this response:
+
+    section#monsters-block
+        table
+          thead
+            tr
+              th Content-type
+              th Resulting data
+          tbody
+            tr
+              td <tt>text/plain</tt>
+              td a list of items, separated by a newline
+            tr
+              td <tt>application/json</tt>
+              td a Json object containing needed data
+            tr
+              td <tt>text/html</tt>
+              td a HTML page
+
+    p you can invoke API calls this way:
+
+    ul.blurbize
+       li <tt>/mythos/:num</tt> : Creates :num  number of assorted mythos creatures
+       li <tt>/eldergods/:num</tt> : Creates :num  number of assorted Elder gods
+       li <tt>/names/:num</tt> : Creates :num  number of cthulhoid names
+       li <tt>/adjectives/:num</tt> : Creates a list of :num lovecraftian adjectives
+       li <tt>/peoples/:num</tt> : Creates :num  number of eldritch folks
+
+
+

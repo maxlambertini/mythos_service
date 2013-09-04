@@ -8,6 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var mythos = require('./routes/mythos');
+var api = require('./routes/api');
 var ab = require('./routes/about');
 var path = require('path');
 
@@ -42,6 +43,7 @@ app.get('/json/names/:num?', mythos.jsonNames);
 app.get('/json/adjectives/:num?',mythos.jsonAdjectives);
 
 app.get('/about', ab.about);
+app.get('/api',api.api);
 
 app.get('/eldergods/:num?', mythos.jsonElderGods);
 app.get('/people/:num?', mythos.jsonPeople);
