@@ -3,7 +3,7 @@
 body {
     margin: 0px;
     font-family : "vollkorn",georgia,serif;
-    font-size: 16pt;
+    font-size: 14pt;
     float:left;
 }
 
@@ -14,7 +14,7 @@ font-style:normal;
 
 h1,h2,h3 { text-align:center;}
 
-h1 { font-size: 3.5em; text-align:center; letter-spacing: -3px; }
+h1 { font-size: 2.5em; text-align:center; letter-spacing: -3px; }
 
 ul.blurbize { width: 75%; margin: 0.5em auto;}
 
