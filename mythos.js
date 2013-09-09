@@ -46,9 +46,16 @@ app.get('/about', ab.about);
 app.get('/api',api.api);
 
 app.get('/eldergods/:num?', mythos.jsonElderGods);
-app.get('/people/:num?', mythos.jsonPeople);
 app.get('/names/:num?', mythos.jsonNames);
+app.get('/peoples/:num?', mythos.jsonPeople);
+app.get('/people/:num?', mythos.jsonPeople);
 app.get('/adjectives/:num?',mythos.jsonAdjectives);
+/*
+app.get('*', function(req,res) {
+    res.render('404',{title: "You are endlessly lost in the aeternal void!"});
+});
+*/
+       
 
 
 

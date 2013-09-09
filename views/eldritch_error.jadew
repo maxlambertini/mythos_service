@@ -1,0 +1,12 @@
+extends layout
+
+block content 
+  header.top
+    h1=title 
+      
+ 
+  div.blurb
+    p.
+       You happen to have offended Azatoth itself! You'll be thrice damned!
+
+

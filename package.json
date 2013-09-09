@@ -1,12 +1,15 @@
 {
-  "name": "application-name",
+  "name": "mythos-service",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node mythos.js"
   },
   "dependencies": {
     "express": "3.3.5",
-    "jade": "*"
+    "jade": "*",
+    "passport": "*",
+    "mongodb":"*",
+    "mongoose":"*"
   }
 }
