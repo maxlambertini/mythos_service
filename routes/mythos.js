@@ -73,48 +73,6 @@ db.open(function(err,res) {;
 //sconsole.log("Coll is: "+ coll || "undefined");
 
 
-var _creature = function(req, res) {
-   var cnt = 1;
-   if (req.params && req.params.monsters) {
-       ////sconsole.log("Monsters: " + req.params.monsters);
-       try {
-           cnt = parseInt(req.params.monsters,10);
-           ////sconsole.log(cnt);
-           if (cnt < 0) cnt = 1;
-           if (cnt > 100) cnt = 100;
-       }
-       catch (e) {
-           //sconsole.log(cnt);
-           //sconsole.log("Error!!!!" + e);
-       }
-   }
-   var resx = [];
-   for (var h =0; h < cnt; h++) {
-        c = crit.fullCreature();
-        resx.push(c);
-    }
-   storeMythos(resx, function (err, res_data) {
-        if (err) {
-            //sconsole.log(err)
-        }
-        else {
-            try {
-                //sconsole.log("Storemythos");
-                //sconsole.log(res_data);
-                if (req.params.tabular && req.params.tabular == 'table')
-                   res.render('table',{ title : "Monster Roster", mythos : crit, monsters : res_data.mythos });
-                else
-                    res.render('page',{ title : "Monsters", monsters : res_data.mythos, mythos:crit }); 
-            }
-            catch (e) {
-                res.write(JSON.stringify(resx));
-            }
-        }
-   });
-        
-}
-
-
 var storeStuff = function (resx, key, callback) {
     var jsonData = { status:'ok' };
     jsonData[key] = resx;
@@ -190,38 +148,29 @@ var storeMythos = function (resx, callback) {
     });
 }
 
-var _jsonCreature = function(req,res) {
+/// Creates an array of full creatures, maxed out at 100 items
+var createJsonCreatures = function (req) {
     var cnt = 1;
     try {
-        if (req.params && req.params.monsters) {
-            try {
-                cnt = parseInt(req.params.monsters,10);
-                if (cnt < 0) cnt = 1;
-                if (cnt > 100) cnt = 100; //max out at 100 critters;
-            }
-            catch (e) {
-                //sconsole.log(cnt);
-                //sconsole.log("Error!!!!" + e);
-            }
-        }
-        var resx = [];
-        for (var h =0; h < cnt; h++) {
-            c = crit.fullCreature();
-            resx.push(c);
-        }
+       cnt = parseInt(req.params.monsters);
+       if (cnt < 0) cnt = 1;
+       if (cnt > 100) cnt = 100;
+    }
+    catch (e) {
+    }
+    var resx = [];
+    for (var h =0; h < cnt; h++) {
+        c = crit.fullCreature();
+        resx.push(c);
+    }
+    return resx; 
+}
+
+var _jsonCreature = function(req,res,d) {
+    try {
+        var resx = d;
         res.writeHead(200, {'Content-type':'text/json' });
-        storeMythos (resx, function (err, data) {
-            if (err) {
-                //sconsole.log("Storing mythos failed: " + err);
-                res.write(JSON.stringify( {
-                    status : 'ko',
-                    error : e 
-                }));
-            }
-            else {
-                res.write (JSON.stringify(data));
-            }
-        });
+        res.write (JSON.stringify(data));
     }
     catch (e) {
         res.writeHead(200, {'Content-type':'text/json' });
@@ -233,37 +182,37 @@ var _jsonCreature = function(req,res) {
     res.end();
 }
 
-var _textCreature = function(req,res) {
-    var cnt = 1;
+
+var _creature = function(req, res,d) {
+    var resx = d;
     try {
-        if (req.params && req.params.monsters) {
-            try {
-                cnt = parseInt(req.params.monsters,10);
-                if (cnt < 0) cnt = 1;
-                if (cnt > 100) cnt = 100; //max out at 100 critters;
-            }
-            catch (e) {
-                //sconsole.log(cnt);
-                //sconsole.log("Error!!!!" + e);
-            }
+        //sconsole.log("Storemythos");
+        //sconsole.log(res_data);
+        console.log(JSON.stringify(resx));
+        if (req.params.tabular && req.params.tabular == 'table')
+            res.render('table',{ title : "Monster Roster", mythos : crit, monsters : resx.mythos });
+        else
+            res.render('page',{ title : "Monsters", monsters : resx.mythos, mythos:crit }); 
+    }
+    catch (e) {
+        console.log ("Error! " + e);
+        
+        res.write(JSON.stringify(resx));
+        res.end();
+    }
+        
+}
+
+
+
+var _textCreature = function(req,res,d) {
+    try {
+        res.writeHead(200, {'Content-type':'text/plain' });
+        res.write("OK");
+        for (var x = 0; x < resx.length; x++) {
+            var w = resx[x];
+            res.write (w.name + "\t" + w.description + "\t" + w.sanity + "\n");
         }
-        var resx = [];
-        for (var h =0; h < cnt; h++) {
-            c = crit.fullCreature();
-            resx.push(c);
-        }
-        storeMythos(resx, function (err, data) {
-            res.writeHead(200, {'Content-type':'text/plain' });
-            if (err)
-                res.write("KO");
-            else {
-                res.write("OK");
-                for (var x = 0; x < resx.length; x++) {
-                    var w = resx[x];
-                    res.write (w.name + "\t" + w.description + "\t" + w.sanity + "\n");
-                }
-            }
-        });
     }
     catch (e) {
         res.writeHead(200, {'Content-type':'text/plain' });
@@ -273,36 +222,47 @@ var _textCreature = function(req,res) {
     res.end();
 }
 
-exports.creature = function(req,res) {
-    req.accepts('text/plain');
-    req.accepts('text/html');
-    req.accepts('application/json');
-    //sconsole.log(req.accepted);
+var fullCreature = function (req,res) {
+    var d = createJsonCreatures(req);
+    storeMythos (d, function (err, data) {
+        if (err)
+            console.log("Error");
+        else {
+            formatCreatureData(req,res,d);
+        }
+    });
+}
+
+
+
+var formatCreatureData = function(req,res,d) {
+    //var d = createJsonCreatures(req);
+    console.log("Formatting mythos");
     res.format({
         'text/plain': function(){
-            _textCreature(req,res);
+            console.log("text");
+            _textCreature(req,res,d);
         },
 
         'text/html': function(){
-            _creature(req,res);
+            console.log("html");
+            _creature(req,res,d);
         },
 
         'application/json': function(){
-            _jsonCreature(req,res);
+            console.log("json");
+            _jsonCreature(req,res,d);
         },
         '*/*' : function() {
-            _textCreature(req,res);
+            console.log("*");
+            _textCreature(req,res,d);
         }
+
     });
-/*
-    res.format(
-    { 'text/html' : function() { _creature(req,res); } },
-    { 'application/json' : function() { _jsonCreature(req,res); }   },
-    { 'text/plain' : function () { _creature(req,res); } }
-    )
-    */
 }
-exports.jsonCreature = _jsonCreature
+
+exports.creature = fullCreature;
+exports.jsonCreature = fullCreature;
 
 
 
@@ -344,7 +304,7 @@ function createJsonDataGenerator (req,res,jsonDataFunction,jsonKey, jsonTitle,ca
                 callback(err,null);
             } else {
                 //sconsole.log("Stuff inserted");
-                //sconsole.log(result);
+                console.log(result);
                 callback (null, result);
             }
         });
@@ -361,16 +321,21 @@ function createJsonDataGenerator (req,res,jsonDataFunction,jsonKey, jsonTitle,ca
     return _res;
 }
 
-function commonJsonDataGenerator(req,res,data) {
+function commonJsonDataGenerator(req,res,data,template) {
     //sconsole.log("invoking data generatoor - "+ data || "no-data");
-    res.write(JSON.stringify(data));
+    res.write(JSON.stringify(data[template]));
     res.end();
 }
 
 function commonJsonPageGenerator (req, res, data, template) {
     //sconsole.log("Generating page " + (data || "no data")+ ","+ (template || " no tpl" ));
-    data["mythos"] = crit;
-    res.render (template, data);    
+    console.log ("Data for template: ");
+    console.log (JSON.stringify(data));
+
+    data[template]["mythos"] = crit;
+    data[template]["slug"] = data["slug"];
+
+    res.render (template, data[template]);    
 
 }
 
@@ -388,7 +353,7 @@ function commonOutput(req,res,data,template) {
     res.format ( {
         text : function() { commonJsonTextGenerator(req,res,data,template); },
         html : function() { commonJsonPageGenerator(req,res,data,template); },
-        json : function() { commonJsonDataGenerator(req,res,data); }
+        json : function() { commonJsonDataGenerator(req,res,data,template); }
     });
 }
 
@@ -399,7 +364,7 @@ function commonDataCallback (req, res, funcToExec, key, title) {
             res.render("eldritch_error", { title : "Eldritch Error!" });
         }
         else {
-            commonOutput(req,res, data[key], key);
+            commonOutput(req,res, data, key);
         }
             
     });
@@ -424,6 +389,32 @@ exports.jsonPeople = function (req,res) {
 exports.jsonNames = function(req,res) {
     //sconsole.log("Invoking jsonNames");
     var data = commonDataCallback(req, res, "crit.getCompleteName()", "names", "Names");
+}
+
+exports.readMythosFromMongo = function (req,res) {
+    var slug = req.params.slug || "mythos-1";
+    var type = slug.split("-")[0];
+    coll.findOne({ 'slug' : slug },{},function (err, found_data) {
+        if (err) {
+            console.log(err);
+            res.render ("eldritch_error", { title : 'The Great Library of Caelano does not contain the tome labelled ' + slug });
+        } else {
+            console.log ("Found!");
+            console.log(found_data);
+            if (found_data != null) {
+                found_data["book"] = true;
+                found_data[type]["book"] = true;
+                if (type != 'mythos') 
+                    commonOutput(req,res,found_data, type);
+                else
+                    formatCreatureData(req,res, found_data);
+            }
+            else
+                res.render ("eldritch_error", { title: 'Drain you of your sanity -- face the thing that should not be' });
+
+        }
+    });
+
 }
 
 

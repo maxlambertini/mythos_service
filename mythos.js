@@ -50,6 +50,7 @@ app.get('/names/:num?', mythos.jsonNames);
 app.get('/peoples/:num?', mythos.jsonPeople);
 app.get('/people/:num?', mythos.jsonPeople);
 app.get('/adjectives/:num?',mythos.jsonAdjectives);
+app.get('/book/:slug?/:tabular?', mythos.readMythosFromMongo);
 /*
 app.get('*', function(req,res) {
     res.render('404',{title: "You are endlessly lost in the aeternal void!"});
