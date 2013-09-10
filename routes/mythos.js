@@ -138,7 +138,7 @@ var storeMythos = function (resx, callback) {
                         else {
                             //sconsole.log("Mythos ok");
                             //sconsole.log(result[0]._id);
-                            //sconsole.log ("Passing jsonData: "+JSON.stringify(jsonData));
+                            console.log ("Passing jsonData: "+JSON.stringify(jsonData));
                             callback (null,jsonData);
                         }
                     });
@@ -152,11 +152,15 @@ var storeMythos = function (resx, callback) {
 var createJsonCreatures = function (req) {
     var cnt = 1;
     try {
+        console.log("params are : " + JSON.stringify(req.params));
+
        cnt = parseInt(req.params.monsters);
        if (cnt < 0) cnt = 1;
        if (cnt > 100) cnt = 100;
+       console.log ("cnt is " + cnt);
     }
     catch (e) {
+        console.log ("error createJsonCreatures! " + e);
     }
     var resx = [];
     for (var h =0; h < cnt; h++) {
@@ -224,11 +228,12 @@ var _textCreature = function(req,res,d) {
 
 var fullCreature = function (req,res) {
     var d = createJsonCreatures(req);
+    console.log ("Critters : " + JSON.stringify(d));
     storeMythos (d, function (err, data) {
         if (err)
             console.log("Error");
         else {
-            formatCreatureData(req,res,d);
+            formatCreatureData(req,res,data);
         }
     });
 }
@@ -246,6 +251,7 @@ var formatCreatureData = function(req,res,d) {
 
         'text/html': function(){
             console.log("html");
+            console.log(JSON.stringify(d));
             _creature(req,res,d);
         },
 
