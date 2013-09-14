@@ -2,7 +2,7 @@ extends layout
 block content 
   header.top
     h1=title 
-    div.subblurb.
+    div.subblurb
       Need a name for your new creature? Look no further!
  
   div.blurb
@@ -10,12 +10,6 @@ block content
       each pp  in names
         li= pp
 
-    if !book
-          div.book_link
-            p This page has been stored in the Great Library of Caelano. You can read it by clicking 
-              |  <a href="/book/#{slug}">here</a>. (Yes, puny mortal. This is a permalink)
-    else
-          div.book_link
-            p This page has been retrieved from the Great Library of Caelano. <a href="/book/#{slug}">This is its permalink.</a>
+    include book_link
 
 

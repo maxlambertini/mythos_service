@@ -194,9 +194,9 @@ var _creature = function(req, res,d) {
         //sconsole.log(res_data);
         console.log(JSON.stringify(resx));
         if (req.params.tabular && req.params.tabular == 'table')
-            res.render('table',{ title : "Monster Roster", mythos : crit, monsters : resx.mythos });
+            res.render('table',{ title : "Monster Roster", mythos : crit, monsters : resx.mythos, slug:resx.slug, book:false });
         else
-            res.render('page',{ title : "Monsters", monsters : resx.mythos, mythos:crit }); 
+            res.render('page',{ title : "Monsters", monsters : resx.mythos, mythos:crit, slug: resx.slug, book:false }); 
     }
     catch (e) {
         console.log ("Error! " + e);
